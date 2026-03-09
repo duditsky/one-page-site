@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="uk" class="scroll-smooth">
+<html lang="uk" >
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>BuildMaster Premium — Інженерна Досконалість</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+
+<link rel="apple-touch-icon" href="{{ asset('images/favicon.png') }}">
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -20,9 +23,7 @@
         <div class="container">
             <a class="navbar-brand fs-3 fw-800" href="#">BUILD<span style="color:var(--accent, #ff9f1c)">MASTER</span></a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+           
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0 d-flex gap-3">
@@ -49,16 +50,18 @@
         </div>
     </nav>
 
-    <header class="hero text-white">
-        <div class="container" data-aos="fade-up">
-            <h1 class="display-1 fw-800 mb-4 text-uppercase">Технології<br><span class="text-gradient">надійності</span></h1>
-            <p class="lead mb-5 opacity-75 col-lg-5">Професійне будівництво та постачання сертифікованих матеріалів для ваших проектів.</p>
-            <div class="d-flex gap-3 hero-btns">
-                <a href="#services" class="btn btn-outline-light px-5 py-3 rounded-0 fw-bold text-uppercase">Наші послуги</a>
-                <a href="#materials" class="btn btn-outline-light px-5 py-3 rounded-0 fw-bold text-uppercase">Матеріали</a>
-            </div>
+    <header class="hero text-white position-relative overflow-hidden">
+    <div class="hero-bg-logo"></div>
+    
+    <div class="container position-relative z-index-1" data-aos="fade-up">
+        <h1 class="display-1 fw-800 mb-4 text-uppercase">Технології<br><span class="text-gradient">надійності</span></h1>
+        <p class="lead mb-5 opacity-75 col-lg-5">Професійне будівництво та постачання сертифікованих матеріалів для ваших проектів.</p>
+        <div class="d-flex gap-3 hero-btns">
+            <a href="#services" class="btn btn-outline-light px-5 py-3 rounded-0 fw-bold text-uppercase">Наші послуги</a>
+            <a href="#materials" class="btn btn-outline-light px-5 py-3 rounded-0 fw-bold text-uppercase">Матеріали</a>
         </div>
-    </header>
+    </div>
+</header>
 
     <section id="services" class="py-5">
         <div class="container py-5">
