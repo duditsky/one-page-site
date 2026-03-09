@@ -1,0 +1,162 @@
+ :root {
+            --accent: #ff9f1c;
+            --dark: #0f172a;
+            --light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: var(--dark);
+            overflow-x: hidden;
+            padding-top: 90px;
+        }
+
+          .navbar {
+            background: #ffffff !important;
+                   border-bottom: 3px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            color: #0f172a !important;
+        
+        }
+
+        .nav-link {
+            color: #0f172a !important;
+                  font-size: 0.85rem;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--accent) !important;
+        }
+
+           .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px;
+            left: 15%;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 70%;
+        }
+
+        .hero {
+            height: 85vh;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.6) 100%),
+                url('https://images.unsplash.com/photo-1541915314068-40a12282f5f6?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #ff9f1c, #ffcc33);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+              .category-card {
+            height: 500px;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: none;
+        }
+
+        .category-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        .category-overlay {
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 10%, rgba(15, 23, 42, 0.2) 100%);
+            transition: 0.4s;
+        }
+
+        .category-card:hover .category-overlay {
+            background: linear-gradient(to top, rgba(255, 159, 28, 0.8) 0%, rgba(15, 23, 42, 0.4) 100%);
+        }
+
+        .material-card {
+            background: white;
+            border: 1px solid #eee;
+            transition: 0.3s;
+            height: 100%;
+            border-radius: 0;
+            p: 0;
+        }
+
+        .img-container {
+            height: 250px;
+            overflow: hidden;
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            p: 3;
+        }
+
+        .img-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: grayscale(0%);
+            transition: 0.3s;
+              }
+
+        .material-card:hover img {
+            transform: scale(1.05);
+        }
+
+           .contact-section {
+            background: var(--dark);
+            padding: 100px 0;
+            clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .form-control {
+            border-radius: 0;
+            border: none;
+            border-bottom: 2px solid rgba(15, 23, 42, 0.2);
+                    padding: 15px 0;
+            background: transparent !important;
+            color: #0f172a !important;
+                     font-weight: 600;
+        }
+
+        .form-control:focus {
+            border-bottom-color: var(--accent);
+            box-shadow: none;
+            outline: none;
+        }
+
+        .form-control::placeholder {
+            color: rgba(15, 23, 42, 0.5) !important;
+        }
+        .review-card {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-radius: 0; 
+}
+
+.review-card:hover {
+    transform: translateY(-10px);
+    border-color: #ff9f1c !important;
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.1) !important;
+}
+
+.italic {
+    font-style: italic;
+    color: #333;
+}
+
+.opacity-1 {
+    pointer-events: none;
+}
