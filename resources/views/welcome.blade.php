@@ -27,10 +27,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0 d-flex gap-3">
                     <li class="nav-item">
-                        <a class="nav-link nav-btn-custom px-4" href="#services">Послуги</a>
+                        <a class="nav-link nav-btn-custom px-6" href="#services">Послуги</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-btn-custom px-4" href="#materials">Матеріали</a>
+                        <a class="nav-link nav-btn-custom px-6" href="#materials">Матеріали</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-btn-custom px-6" href="#insights">Новини</a>
                     </li>
                 </ul>
 
@@ -102,22 +105,34 @@
                 <div class="col-md-6 text-md-start text-center">
                     <h2 class="display-4 fw-800 m-0">Матеріали</h2>
                 </div>
-                
+
             </div>
             <div class="row g-4">
                 @foreach($materials as $material)
-                <div class="col-lg-4 col-md-6" data-aos="fade-up">
-                    <div class="material-card shadow-sm bg-white p-0">
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up"> {{-- d-flex тут вирівнює висоту колонок --}}
+                    <div class="material-card shadow-sm bg-white p-0 d-flex flex-column w-100"> {{-- flex-column дозволяє керувати внутрішнім простором --}}
                         <div class="img-container">
-                            <img src="{{ asset('images/materials/' . $material->image) }}" alt="{{ $material->name }}" onerror="this.src='https://via.placeholder.com/300'">
+                            <img src="{{ asset('images/materials/' . $material->image) }}"
+                                alt="{{ $material->name }}"
+                                class="w-100 object-fit-cover"
+                                style="height: 200px;"
+                                onerror="this.src='https://via.placeholder.com/300'">
                         </div>
-                        <div class="p-4">
-                            <h5 class="fw-800 text-uppercase mb-2">{{ $material->name }}</h5>
-                            <p class="text-muted small mb-4">{{ Str::limit($material->description, 80) }}</p>
-                            <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+
+                        <div class="p-4 d-flex flex-column flex-grow-1"> {{-- flex-grow-1 заповнює вільний простір --}}
+                            <h5 class="fw-800 text-uppercase mb-2" style="min-height: 3rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                                {{ $material->name }}
+                            </h5>
+
+                            <p class="text-muted small mb-4">
+                                {{ Str::limit($material->description, 80) }}
+                            </p>
+
+                            {{-- mt-auto — це магія, яка штовхає цей блок до самого низу картки --}}
+                            <div class="d-flex justify-content-between align-items-center pt-3 border-top mt-auto">
                                 <div>
-                                    <span class="d-block small text-muted text-uppercase fw-bold">Ціна</span>
-                                    <span class="fs-4 fw-800 text-dark">{{ number_format($material->price, 2, '.', ' ') }} ₴</span>
+                                    <span class="d-block small text-muted text-uppercase fw-bold" style="font-size: 0.65rem;">Ціна</span>
+                                    <span class="fs-4 fw-800 text-dark">{{ number_format($material->price, 0, '.', ' ') }} ₴</span>
                                 </div>
                                 <button onclick="fillOrder('{{ $material->name }}')" class="btn btn-dark rounded-0 px-4 fw-bold small text-uppercase">Купити</button>
                             </div>
@@ -128,60 +143,95 @@
             </div>
         </div>
     </section>
-    <section id="reviews" class="py-5 bg-white">
-    <div class="container py-5">
-        <div class="row mb-5" data-aos="fade-up">
-            <div class="col-lg-7">
-                <span class="text-warning fw-bold text-uppercase small" style="letter-spacing: 2px;">// Репутація</span>
-                <h2 class="display-4 fw-800 mt-2">Відгуки клієнтів</h2>
-            </div>
-        </div>
+    <section id="insights" class="py-5 bg-white border-top">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-lg-7" data-aos="fade-right">
+                    <div class="d-flex align-items-center mb-4">
+                        <span class="text-warning fw-bold text-uppercase small me-3" style="letter-spacing: 2px;">// Журнал</span>
+                        <h2 class="h1 fw-800 m-0">Новини</h2>
+                    </div>
 
-        <div class="row g-4">
-            @foreach($reviews as $review)
-                @if($review->is_moderated) {{-- Показуємо тільки модеравані --}}
-                <div class="col-lg-6" data-aos="fade-up">
-                    <div class="p-4 p-md-5 border border-light shadow-sm position-relative h-100 bg-white review-card">
-                        <i class="fas fa-quote-right position-absolute end-0 top-0 opacity-1 display-1 m-4 text-warning" style="opacity: 0.1;"></i>
-                        
-                        <div class="mb-3 text-warning">
-                            @for($i = 0; $i < 5; $i++)
-                                <i class="fa-star {{ $i < $review->rating ? 'fas' : 'far' }} small"></i>
-                            @endfor
+                    <div class="news-scroll-container">
+                        @foreach($news as $article)
+                        @if($article->is_published)
+                        <div class="news-item-minimal mb-4">
+                            <div class="d-flex align-items-baseline border-start border-warning border-3 ps-4 transition-all py-2">
+                                <div class="date-badge me-4 text-center">
+                                    <span class="d-block fw-800 fs-4 lh-1">{{ \Carbon\Carbon::parse($article->published_at)->format('d') }}</span>
+                                    <span class="text-uppercase small fw-bold opacity-50" style="font-size: 0.65rem;">{{ \Carbon\Carbon::parse($article->published_at)->translatedFormat('M') }}</span>
+                                </div>
+
+                                <div class="news-content">
+                                    <h4 class="fw-800 text-uppercase h6 mb-1 letter-spacing-1">
+                                        <a href="/news/{{ $article->slug }}" class="text-dark text-decoration-none hover-orange">
+                                            {{ $article->title }}
+                                        </a>
+                                    </h4>
+                                    <p class="text-muted small mb-2 lh-sm opacity-75">
+                                        {{ Str::limit(strip_tags($article->content), 110) }}
+                                    </p>
+                                    <a href="/news/{{ $article->slug }}" class="btn-read-more">
+                                        Детальніше <i class="fas fa-chevron-right ms-1"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="col-lg-5 border-start-lg" data-aos="fade-left">
+                    <div class="ps-lg-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <span class="text-warning fw-bold text-uppercase small me-3" style="letter-spacing: 2px;">// Репутація</span>
+                            <h2 class="h1 fw-800 m-0">Відгуки</h2>
                         </div>
 
-                        <p class="fs-5 fw-medium mb-4 lh-base text-dark italic">
-                            "{{ $review->text }}"
-                        </p>
+                        <div class="reviews-stack">
+                            @foreach($reviews as $review)
+                            @if($review->is_moderated)
+                            <div class="review-mini p-4 bg-light mb-4 position-relative">
+                                <i class="fas fa-quote-left text-warning opacity-25 position-absolute top-0 start-0 m-3 fs-2"></i>
 
-                        <div class="d-flex align-items-center mt-auto">
-                            @if($review->photo)
-                                <img src="{{ asset('storage/' . $review->photo) }}" class="rounded-circle me-3 object-fit-cover" style="width: 50px; height: 50px;" alt="{{ $review->client_name }}">
-                            @else
-                                <div class="bg-warning text-dark fw-800 rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
-                                    {{ mb_substr($review->client_name, 0, 1) }}
+                                <div class="mb-2 text-warning small">
+                                    @for($i = 0; $i < 5; $i++)
+                                        <i class="fa-star {{ $i < $review->rating ? 'fas' : 'far' }}"></i>
+                                        @endfor
                                 </div>
-                            @endif
-                            
-                            <div>
-                                <h6 class="fw-800 mb-0 text-uppercase small">{{ $review->client_name }}</h6>
-                                <span class="text-muted small">{{ $review->client_status ?? 'Клієнт BuildMaster' }}</span>
+
+                                <p class="small fw-medium italic mb-3">"{{ Str::limit($review->text, 150) }}"</p>
+
+                                <div class="d-flex align-items-center">
+                                    @if($review->photo)
+                                    <img src="{{ asset('storage/' . $review->photo) }}" class="rounded-circle me-3" style="width: 40px; height: 40px; object-fit: cover;">
+                                    @else
+                                    <div class="bg-dark text-white rounded-circle d-flex align-items-center justify-content-center me-3 small fw-bold" style="width: 40px; height: 40px;">
+                                        {{ mb_substr($review->client_name, 0, 1) }}
+                                    </div>
+                                    @endif
+                                    <div>
+                                        <h6 class="fw-800 mb-0 small text-uppercase">{{ $review->client_name }}</h6>
+                                        <span class="text-muted" style="font-size: 0.7rem;">{{ $review->client_status }}</span>
+                                    </div>
+                                </div>
                             </div>
+                            @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>
-                @endif
-            @endforeach
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <section id="contact" class="py-5 bg-dark text-white border-top border-warning">
         <div class="container py-5">
             <div class="row justify-content-between">
                 <div class="col-lg-5" data-aos="fade-right">
                     <h2 class="display-3 fw-900 mb-4 text-uppercase text-white">Отримайте<br><span class="text-warning">кошторис</span></h2>
-                    <p class="opacity-50 mb-5">Підготуємо пропозицію протягом 24 годин.</p>
+                    <p class="opacity-50 mb-5">Підготуємо пропозицію протягом 12 годин.</p>
                 </div>
                 <div class="col-lg-6" data-aos="fade-left">
                     <form id="contactForm" class="p-5 bg-white bg-opacity-5 border border-warning">

@@ -160,3 +160,31 @@
 .opacity-1 {
     pointer-events: none;
 }
+/* Стилізація комбінованого блоку */
+.news-zoom {
+    transition: transform 0.5s ease;
+}
+
+.news-item-compact:hover .news-zoom {
+    transform: scale(1.1);
+}
+
+.review-mini {
+    border-left: 4px solid #ff9f1c; /* Жовта лінія збоку */
+    transition: background 0.3s ease;
+}
+
+.review-mini:hover {
+    background: #f1f1f1 !important;
+}
+
+/* Медіа-запит для вертикальної лінії між колонками на десктопах */
+@media (min-width: 992px) {
+    .border-start-lg {
+        border-left: 1px solid #eee !important;
+    }
+}
+
+.italic {
+    font-style: italic;
+}
