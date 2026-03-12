@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>BuildMaster Premium — Інженерна Досконалість</title>
-    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="{{ asset('css/main.css') }}">
 
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/favicon.png') }}">
 
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -22,8 +27,6 @@
     <nav class="navbar navbar-expand-lg fixed-top shadow-sm py-2 bg-white">
         <div class="container">
             <a class="navbar-brand fs-3 fw-800" href="#">BUILD<span style="color:var(--accent, #ff9f1c)">MASTER</span></a>
-
-
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0 d-flex gap-3">
@@ -75,13 +78,13 @@
             <div class="row g-4">
                 @foreach($services as $category => $items)
                 @php
-                $bg = 'budmat.png'; // Прибрав пробіл на початку
+                $bg = 'budmat.png'; 
                 if(Str::contains($category, 'Покрівельні')) {
-                $bg = 'poslug.png'; // Прибрав пробіл
+                $bg = 'poslug.png'; 
                 } elseif(Str::contains($category, ['Оздоблення', 'Фасад'])) {
-                $bg = 'fasad.png'; // Виправив fasasd на fasad (як у списку файлів)
+                $bg = 'fasad.png'; 
                 } elseif(Str::contains($category, 'Інженерні')) {
-                $bg = 'ingenering.png'; // Прибрав пробіл
+                $bg = 'ingenering.png'; 
                 }
                 @endphp
                 <div class="col-lg-6" data-aos="zoom-in-up">
@@ -112,12 +115,11 @@
                 <div class="col-md-6 text-md-start text-center">
                     <h2 class="display-4 fw-800 m-0">Матеріали</h2>
                 </div>
-
             </div>
             <div class="row g-4">
                 @foreach($materials as $material)
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up"> {{-- d-flex тут вирівнює висоту колонок --}}
-                    <div class="material-card shadow-sm bg-white p-0 d-flex flex-column w-100"> {{-- flex-column дозволяє керувати внутрішнім простором --}}
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
+                    <div class="material-card shadow-sm bg-white p-0 d-flex flex-column w-100">
                         <div class="img-container">
                             <img src="{{ asset('images/materials/' . $material->image) }}"
                                 alt="{{ $material->name }}"
@@ -126,7 +128,7 @@
                                 onerror="this.src='https://via.placeholder.com/300'">
                         </div>
 
-                        <div class="p-4 d-flex flex-column flex-grow-1"> {{-- flex-grow-1 заповнює вільний простір --}}
+                        <div class="p-4 d-flex flex-column flex-grow-1">
                             <h5 class="fw-800 text-uppercase mb-2" style="min-height: 3rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
                                 {{ $material->name }}
                             </h5>
@@ -135,7 +137,6 @@
                                 {{ Str::limit($material->description, 80) }}
                             </p>
 
-                            {{-- mt-auto — це магія, яка штовхає цей блок до самого низу картки --}}
                             <div class="d-flex justify-content-between align-items-center pt-3 border-top mt-auto">
                                 <div>
                                     <span class="d-block small text-muted text-uppercase fw-bold" style="font-size: 0.65rem;">Ціна</span>
@@ -150,6 +151,7 @@
             </div>
         </div>
     </section>
+
     <section id="insights" class="py-5 bg-white border-top">
         <div class="container py-5">
             <div class="row g-5">
