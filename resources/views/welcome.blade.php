@@ -76,13 +76,14 @@
             <div class="row g-4">
                 @foreach($services as $category => $items)
                 @php
-                $bg = 'budmat.png'; 
+                // Змінено на .webp
+                $bg = 'budmat.webp'; 
                 if(Str::contains($category, 'Покрівельні')) {
-                $bg = 'poslug.png'; 
+                    $bg = 'poslug.webp'; 
                 } elseif(Str::contains($category, ['Оздоблення', 'Фасад'])) {
-                $bg = 'fasad.png'; 
+                    $bg = 'fasad.webp'; 
                 } elseif(Str::contains($category, 'Інженерні')) {
-                $bg = 'ingenering.png'; 
+                    $bg = 'ingenering.webp'; 
                 }
                 @endphp
                 <div class="col-lg-6" data-aos="zoom-in-up">
@@ -119,10 +120,11 @@
                 <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
                     <div class="material-card shadow-sm bg-white p-0 d-flex flex-column w-100">
                         <div class="img-container">
-                            <img src="{{ asset('images/materials/' . $material->image) }}"
+                            <img src="{{ asset('images/materials/' . Str::replace('.png', '.webp', $material->image)) }}"
                                 alt="{{ $material->name }}"
                                 class="w-100 object-fit-cover"
                                 style="height: 200px;"
+                                loading="lazy"
                                 onerror="this.src='https://via.placeholder.com/300'">
                         </div>
 
@@ -212,7 +214,7 @@
 
                                 <div class="d-flex align-items-center">
                                     @if($review->photo)
-                                    <img src="{{ asset('storage/' . $review->photo) }}" class="rounded-circle me-3" style="width: 40px; height: 40px; object-fit: cover;">
+                                    <img src="{{ asset('storage/' . $review->photo) }}" class="rounded-circle me-3" style="width: 40px; height: 40px; object-fit: cover;" loading="lazy">
                                     @else
                                     <div class="bg-dark text-white rounded-circle d-flex align-items-center justify-content-center me-3 small fw-bold" style="width: 40px; height: 40px;">
                                         {{ mb_substr($review->client_name, 0, 1) }}
